@@ -14,7 +14,7 @@ jobs:
       - name: راه‌اندازی Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: '24.21.0'
           cache: 'npm'
 
       - name: نصب وابستگی‌ها و بیلد پروژه
