@@ -11,7 +11,7 @@ jobs:
       - name: دریافت کدها (Checkout)
         uses: actions/checkout@v4
 
-      - name: راه‌اندازی Node.js نسخه ۲۲
+      - name: راه‌اندازی Node.js نسخه 24.21.0
         uses: actions/setup-node@v4
         with:
           node-version: '24.21.0'
@@ -22,15 +22,12 @@ jobs:
           npm install
           npm run build
 
-      - name: تنظیم ابزار AWS CLI برای اتصال به آروان
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.ARVAN_ACCESS_KEY }}
-          aws-secret-access-key: ${{ secrets.ARVAN_SECRET_KEY }}
-          aws-region: us-east-1
-
       - name: همگام‌سازی فایل‌ها با صندوقچه آروان‌کلاد (Sync)
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.ARVAN_ACCESS_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.ARVAN_SECRET_KEY }}
         run: |
           aws s3 sync ./dist s3://abwalfdltnha178.ir \
             --endpoint-url https://s3.ir-thr-at1.arvanstorage.ir \
+            --region us-east-1 \
             --delete
