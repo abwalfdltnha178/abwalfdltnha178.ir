@@ -26,8 +26,8 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.ARVAN_ACCESS_KEY }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.ARVAN_SECRET_KEY }}
+          AWS_DEFAULT_REGION: us-east-1
         run: |
           aws s3 sync ./dist s3://abwalfdltnha178.ir \
             --endpoint-url https://s3.ir-thr-at1.arvanstorage.ir \
-            --region us-east-1 \
             --delete
