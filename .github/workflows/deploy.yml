@@ -29,5 +29,5 @@ jobs:
           AWS_DEFAULT_REGION: us-east-1
         run: |
           aws s3 sync ./dist s3://abwalfdltnha178.ir \
-            --endpoint-url https://s3.ir-thr-at1.arvanstorage.ir \
+            --endpoint-url https://s3.ir-central1.arvanstorage.ir \
             --delete
