@@ -24,10 +24,10 @@ jobs:
 
       - name: همگام‌سازی فایل‌ها با صندوقچه آروان‌کلاد (Sync)
         env:
-          AWS_ACCESS_KEY_ID: "b73c8f2d-ea57-45b6-a2d0-0c025cc99abf"
-          AWS_SECRET_ACCESS_KEY: "433a751467cc3d6bfeeab09c0aadbe603d603b64"
+          AWS_ACCESS_KEY_ID: ${{ secrets.ARVAN_ACCESS_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.ARVAN_SECRET_KEY }}
           AWS_DEFAULT_REGION: us-east-1
         run: |
           aws s3 sync ./dist s3://abwalfdltnha178.ir \
-            --endpoint-url https://s3.ir-central1.arvanstorage.ir \
+            --endpoint-url https://s3.ir-thr-at1.arvanstorage.ir \
             --delete
