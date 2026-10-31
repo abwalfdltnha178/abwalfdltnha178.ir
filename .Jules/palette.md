@@ -1,0 +1,3 @@
+## 2023-11-01 - Missing Focus Visible States in Astro Default Template
+**Learning:** The default Astro starter template (`astronautical-velocity`) lacks explicit `:focus-visible` states for its interactive elements (links, buttons). While browsers provide a default outline, relying on it can lead to inconsistent and sometimes hard-to-see focus indicators, especially with custom-styled elements. Explicitly defining `:focus-visible` is crucial for keyboard navigation accessibility.
+**Action:** When starting a new Astro project (or any project with a default template), proactively add explicit `:focus-visible` styles to all interactive elements to ensure a baseline of keyboard accessibility from the start.
