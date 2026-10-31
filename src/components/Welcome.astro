@@ -50,6 +50,27 @@ import background from '../assets/background.svg';
 </div>
 
 <style>
+	/* Accessibility: Explicit focus states for keyboard navigation */
+	a:focus-visible,
+	button:focus-visible,
+	input:focus-visible,
+	textarea:focus-visible,
+	select:focus-visible {
+		outline: 2px solid #3245ff;
+		outline-offset: 2px;
+		border-radius: 4px;
+	}
+
+	#links a.button:focus-visible {
+		outline: 2px solid #bc52ee;
+		outline-offset: 4px;
+	}
+
+	#news:focus-visible {
+		outline: 2px solid #3245ff;
+		outline-offset: 4px;
+	}
+
 	#background {
 		position: fixed;
 		top: 0;
