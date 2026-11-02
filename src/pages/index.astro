@@ -1,11 +1,82 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
 <Layout>
-	<Welcome />
+	<header class="container" aria-label="Resume Header">
+		<h1>Your Name</h1>
+		<p>Professional Title | Contact Information</p>
+	</header>
+
+	<main class="container">
+		<section aria-labelledby="summary-heading">
+			<h2 id="summary-heading">Professional Summary</h2>
+			<p>A brief summary of your professional background, skills, and goals.</p>
+		</section>
+
+		<section aria-labelledby="experience-heading">
+			<h2 id="experience-heading">Experience</h2>
+			<article>
+				<h3>Job Title - Company Name</h3>
+				<p><em>Dates of Employment</em></p>
+				<ul>
+					<li>Key responsibility or achievement</li>
+					<li>Key responsibility or achievement</li>
+				</ul>
+			</article>
+		</section>
+
+		<section aria-labelledby="education-heading">
+			<h2 id="education-heading">Education</h2>
+			<article>
+				<h3>Degree Name - University Name</h3>
+				<p><em>Graduation Year</em></p>
+			</article>
+		</section>
+	</main>
 </Layout>
+
+<style>
+	.container {
+		max-width: 800px;
+		margin: 0 auto;
+		padding: 2rem 1rem;
+		font-family: system-ui, -apple-system, sans-serif;
+		color: #333;
+		line-height: 1.6;
+	}
+
+	header {
+		border-bottom: 2px solid #eee;
+		margin-bottom: 2rem;
+		padding-bottom: 1rem;
+	}
+
+	h1 {
+		font-size: 2.5rem;
+		margin-bottom: 0.5rem;
+		color: #111;
+	}
+
+	h2 {
+		font-size: 1.75rem;
+		margin-top: 2rem;
+		margin-bottom: 1rem;
+		color: #222;
+		border-bottom: 1px solid #eee;
+		padding-bottom: 0.5rem;
+	}
+
+	h3 {
+		font-size: 1.25rem;
+		margin-bottom: 0.25rem;
+	}
+
+	ul {
+		padding-left: 1.5rem;
+	}
+
+	li {
+		margin-bottom: 0.5rem;
+	}
+</style>
