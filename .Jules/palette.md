@@ -1,0 +1,3 @@
+## 2025-01-20 - RTL and Language Localization for Persian Sites
+**Learning:** For Persian (Farsi) websites, simply translating the text is not enough for a correct user experience or for accessibility. The HTML element must explicitly have `lang="fa"` and crucially `dir="rtl"` to ensure the browser properly renders the flow from right-to-left. Without `dir="rtl"`, not only is the visual layout broken, but screen readers and keyboard navigation may behave unpredictably or incorrectly for RTL languages.
+**Action:** Always verify the `<html lang="..." dir="...">` attributes in the main layout file for localized projects (especially RTL languages) to ensure native support for layout flow and accessibility is present before adding more complex UI elements.
