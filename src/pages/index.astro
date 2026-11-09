@@ -3,24 +3,143 @@ import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout>
-	<main>
-		<h1>رزومه من</h1>
-	</main>
+	<div class="resume-container">
+		<header class="resume-header">
+			<h1>نام و نام خانوادگی شما</h1>
+			<p class="subtitle">عنوان شغلی شما (مثلاً: توسعه‌دهنده فرانت‌اند)</p>
+			<address class="contact-info">
+				<a href="mailto:email@example.com" aria-label="ارسال ایمیل">email@example.com</a> |
+				<a href="tel:+989000000000" aria-label="تماس تلفنی">۰۹۰۰۰۰۰۰۰۰۰</a> |
+				<a href="https://linkedin.com/in/yourprofile" target="_blank" rel="noopener noreferrer">لینکدین</a>
+			</address>
+		</header>
+
+		<main class="resume-content">
+			<section class="resume-section" aria-labelledby="about-heading">
+				<h2 id="about-heading">درباره من</h2>
+				<p>
+					خلاصه‌ای از مهارت‌ها، تجربیات و اهداف شغلی شما در این قسمت قرار می‌گیرد. این متن باید کوتاه، جذاب و بیانگر ارزش‌های حرفه‌ای شما باشد.
+				</p>
+			</section>
+
+			<section class="resume-section" aria-labelledby="experience-heading">
+				<h2 id="experience-heading">سوابق شغلی</h2>
+				<article class="experience-item">
+					<h3>عنوان شغل - نام شرکت</h3>
+					<time datetime="2020-01/2023-01" class="date">فروردین ۱۳۹۹ - اسفند ۱۴۰۱</time>
+					<ul>
+						<li>دستاوردهای کلیدی و مسئولیت‌های اصلی</li>
+						<li>پروژه‌های مهمی که در آن‌ها نقش داشته‌اید</li>
+						<li>تکنولوژی‌ها و ابزارهای مورد استفاده</li>
+					</ul>
+				</article>
+			</section>
+
+			<section class="resume-section" aria-labelledby="education-heading">
+				<h2 id="education-heading">تحصیلات</h2>
+				<article class="education-item">
+					<h3>مقطع و رشته تحصیلی - نام دانشگاه</h3>
+					<time datetime="2016-09/2020-06" class="date">مهر ۱۳۹۵ - تیر ۱۳۹۹</time>
+				</article>
+			</section>
+
+			<section class="resume-section" aria-labelledby="skills-heading">
+				<h2 id="skills-heading">مهارت‌ها</h2>
+				<ul class="skills-list">
+					<li>مهارت ۱</li>
+					<li>مهارت ۲</li>
+					<li>مهارت ۳</li>
+					<li>مهارت ۴</li>
+				</ul>
+			</section>
+		</main>
+	</div>
 </Layout>
 
 <style>
-	main {
-		font-family: Inter, Roboto, 'Helvetica Neue', 'Arial Nova', 'Nimbus Sans', Arial, sans-serif;
+	.resume-container {
+		max-width: 800px;
+		margin: 0 auto;
 		padding: 2rem;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		min-height: 100vh;
+		color: #333;
+		line-height: 1.6;
 	}
 
-	h1 {
+	.resume-header {
+		text-align: center;
+		margin-bottom: 3rem;
+		padding-bottom: 2rem;
+		border-bottom: 2px solid #eaeaea;
+	}
+
+	.resume-header h1 {
 		font-size: 2.5rem;
 		color: #111827;
+		margin: 0 0 0.5rem 0;
+	}
+
+	.subtitle {
+		font-size: 1.25rem;
+		color: #4b5563;
+		margin: 0 0 1rem 0;
+	}
+
+	.contact-info {
+		font-style: normal;
+		color: #6b7280;
+	}
+
+	.contact-info a {
+		color: #2563eb;
+		text-decoration: none;
+	}
+
+	.contact-info a:hover {
+		text-decoration: underline;
+	}
+
+	.resume-section {
+		margin-bottom: 2.5rem;
+	}
+
+	.resume-section h2 {
+		font-size: 1.5rem;
+		color: #1f2937;
+		border-bottom: 1px solid #eaeaea;
+		padding-bottom: 0.5rem;
 		margin-bottom: 1rem;
+	}
+
+	.experience-item, .education-item {
+		margin-bottom: 1.5rem;
+	}
+
+	.experience-item h3, .education-item h3 {
+		font-size: 1.125rem;
+		margin: 0 0 0.25rem 0;
+		color: #374151;
+	}
+
+	.date {
+		display: block;
+		font-size: 0.875rem;
+		color: #6b7280;
+		margin-bottom: 0.5rem;
+	}
+
+	.skills-list {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.5rem;
+		list-style: none;
+		padding: 0;
+	}
+
+	.skills-list li {
+		background-color: #f3f4f6;
+		padding: 0.25rem 0.75rem;
+		border-radius: 9999px;
+		font-size: 0.875rem;
+		color: #4b5563;
 	}
 </style>
