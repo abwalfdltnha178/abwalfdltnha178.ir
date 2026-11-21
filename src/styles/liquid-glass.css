@@ -1,0 +1,53 @@
+.liquid-glass {
+  position: relative;
+  isolation: isolate;
+  background: var(--surface-card);
+  -webkit-backdrop-filter: blur(14px) saturate(135%);
+  backdrop-filter: blur(14px) saturate(135%);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-card);
+}
+
+.liquid-glass > .lg-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.liquid-glass > *:not(.lg-layer) {
+  position: relative;
+  z-index: 1;
+}
+
+.liquid-glass .lg-refraction {
+  background: rgba(255, 255, 255, 0.03);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+
+.liquid-glass .lg-tint {
+  pointer-events: none;
+}
+
+/* کلاس کمکی برای هدر یا المان‌های چسبنده تا تداخل پوزیشن ایجاد نشود */
+.glass-nav-bar {
+  background: var(--surface-elevated);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-card);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .liquid-glass {
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+  }
+
+  .liquid-glass .lg-refraction {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
