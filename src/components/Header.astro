@@ -14,7 +14,7 @@ const isActive = (href: string) => {
 };
 ---
 
-<header class="site-header glass-nav-bar liquid-glass">
+<header class="site-header glass-nav-bar liquid-glass" data-thickness="36" data-blur="3" data-tint="255,255,255" data-tint-opacity="0.55">
   <div class="header-inner">
     <a href="/" class="brand-link" aria-label={`صفحه اصلی ${siteConfig.name}`}>
       <span class="brand-mark">AT</span>
@@ -35,7 +35,7 @@ const isActive = (href: string) => {
       <span class="nav-toggle-lines" aria-hidden="true"></span>
     </button>
 
-    <nav class="site-nav liquid-glass" id="siteNavMenu" aria-label="ناوبری اصلی">
+    <nav class="site-nav liquid-glass" id="siteNavMenu" aria-label="ناوبری اصلی" data-thickness="36" data-blur="3" data-tint="255,255,255" data-tint-opacity="0.55">
       <ul class="nav-list">
         {
           headerNavItems.map((item) => (
