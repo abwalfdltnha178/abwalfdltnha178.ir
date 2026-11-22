@@ -1,0 +1,78 @@
+---
+import { getCollection } from 'astro:content';
+
+const labItems = await getCollection('lab');
+---
+
+<section id="lab" class="section-block">
+  <div class="section-header">
+    <h2 class="section-title">آزمایشگاه زنده فناوری</h2>
+    <p class="section-subtitle">
+      محل آزمایش الگوهای رابط کاربری، افکت‌های Liquid Glass، ساختارهای Astro و یادداشت‌های فنی.
+    </p>
+  </div>
+
+  {
+    labItems.length > 0 ? (
+      <div class="lab-grid">
+        {
+          labItems.map((item) => (
+            <article class="liquid-glass lab-card" data-thickness="40" data-blur="3" data-tint="255,255,255" data-tint-opacity="0.7">
+              <span class="lab-topic">{item.data.topic}</span>
+              <h3>{item.data.title}</h3>
+              <p>{item.data.description}</p>
+              <a href={`/lab/${item.id}/`} class="card-link">بررسی آزمایش ←</a>
+            </article>
+          ))
+        }
+      </div>
+    ) : (
+      <div class="liquid-glass lab-card" data-thickness="40" data-blur="3" data-tint="255,255,255" data-tint-opacity="0.72">
+        <h3>آزمایش‌های در حال ثبت</h3>
+        <p>
+          تجربه‌های رابط کاربری شیشه‌ای، معماری کامپوننتی Astro و یادداشت‌های فنی به‌زودی در این بخش قرار می‌گیرند.
+        </p>
+        <a href="/lab/" class="card-link">رفتن به صفحه آزمایشگاه ←</a>
+      </div>
+    )
+  }
+</section>
+
+<style>
+  .lab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  .lab-card {
+    border-radius: var(--radius-md);
+    padding: 24px;
+  }
+
+  .lab-topic {
+    display: inline-block;
+    font-size: var(--text-xs);
+    font-weight: 700;
+    color: var(--accent-secondary);
+    margin-bottom: 8px;
+  }
+
+  .lab-card h3 {
+    font-size: var(--text-lg);
+    margin: 0 0 8px;
+  }
+
+  .lab-card p {
+    margin: 0 0 14px;
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+  }
+
+  .card-link {
+    display: inline-block;
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--accent-primary);
+  }
+</style>
