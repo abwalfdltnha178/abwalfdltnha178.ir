@@ -1,0 +1,66 @@
+---
+import { socialLinks } from '../data/socials';
+---
+
+<section id="socials" class="section-block">
+  <div class="section-header">
+    <h2 class="section-title">شبکه‌های اجتماعی، کدها و کانال‌ها</h2>
+    <p class="section-subtitle">
+      مسیرهای ارتباطی، مخازن کد، کانال‌ها و صفحات محتوایی ابوالفضل تنها.
+    </p>
+  </div>
+
+  <div class="socials-grid">
+    {
+      socialLinks.map((item) => (
+        <a
+          href={item.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="liquid-glass social-card"
+          data-thickness="35"
+          data-blur="3"
+          data-tint="255,255,255"
+          data-tint-opacity="0.72"
+        >
+          <span class="social-label">{item.label}</span>
+          <span class="social-arrow" aria-hidden="true">↗</span>
+        </a>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .socials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 14px;
+  }
+
+  .social-card {
+    border-radius: var(--radius-md);
+    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    transition: transform var(--transition-fast);
+  }
+
+  .social-card:hover {
+    transform: translateY(-2px);
+  }
+
+  .social-label {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .social-arrow {
+    font-size: var(--text-base);
+    color: var(--accent-primary);
+    font-weight: 700;
+  }
+</style>
