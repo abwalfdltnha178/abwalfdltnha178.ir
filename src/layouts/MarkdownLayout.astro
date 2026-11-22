@@ -1,0 +1,218 @@
+---
+import Layout from './Layout.astro';
+import { siteConfig } from '../data/site';
+
+interface Props {
+  title: string;
+  description: string;
+  path?: string;
+  pubDate?: Date | string;
+  updatedDate?: Date | string;
+  category?: string;
+  badgeLabel?: string;
+  backHref?: string;
+  backLabel?: string;
+  schemaType?: 'Article' | 'CreativeWork';
+}
+
+const {
+  title,
+  description,
+  path = Astro.url.pathname || '/',
+  pubDate,
+  updatedDate,
+  category,
+  badgeLabel,
+  backHref = '/',
+  backLabel = 'بازگشت',
+  schemaType = 'Article',
+} = Astro.props;
+
+const formatFaDate = (value?: Date | string) => {
+  if (!value) return null;
+  const dateObj = value instanceof Date ? value : new Date(value);
+  if (Number.isNaN(dateObj.getTime())) return String(value);
+  return new Intl.DateTimeFormat('fa-IR', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  }).format(dateObj);
+};
+
+const isoPublished = pubDate instanceof Date ? pubDate.toISOString() : pubDate;
+const isoModified = updatedDate instanceof Date ? updatedDate.toISOString() : updatedDate;
+const displayPubDate = formatFaDate(pubDate);
+const displayUpdatedDate = formatFaDate(updatedDate);
+---
+
+<Layout
+  title={`${title} | ${siteConfig.name}`}
+  description={description}
+  path={path}
+  ogType="article"
+  publishedTime={isoPublished}
+  modifiedTime={isoModified}
+  schemaType={schemaType}
+>
+  <article
+    class="liquid-glass md-article"
+    data-thickness="44"
+    data-blur="3"
+    data-tint="255,255,255"
+    data-tint-opacity="0.72"
+  >
+    <header class="md-article-header">
+      <div class="md-article-meta">
+        {category && <span class="md-tag">{category}</span>}
+        {badgeLabel && <span class="md-tag">{badgeLabel}</span>}
+        {displayPubDate && <time datetime={isoPublished}>{displayPubDate}</time>}
+        {displayUpdatedDate && (
+          <span>• به‌روزرسانی: <time datetime={isoModified}>{displayUpdatedDate}</time></span>
+        )}
+      </div>
+
+      <h1 class="md-article-title">{title}</h1>
+      <p class="md-article-lead">{description}</p>
+    </header>
+
+    <div class="md-article-body">
+      <slot />
+    </div>
+
+    <footer class="md-article-footer">
+      <a href={backHref} class="md-back-link">← {backLabel}</a>
+    </footer>
+  </article>
+</Layout>
+
+<style>
+  .md-article {
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    max-width: 920px;
+    margin: 0 auto;
+  }
+
+  .md-article-header {
+    padding-bottom: 20px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--border-hairline);
+  }
+
+  .md-article-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    font-size: var(--text-xs);
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+  }
+
+  .md-tag {
+    background: rgba(35, 27, 77, 0.08);
+    color: var(--accent-primary);
+    padding: 4px 12px;
+    border-radius: var(--radius-pill);
+    font-weight: 700;
+  }
+
+  .md-article-title {
+    font-size: var(--text-2xl);
+    margin: 0 0 10px;
+  }
+
+  .md-article-lead {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: var(--text-base);
+  }
+
+  .md-article-body {
+    color: var(--text-primary);
+    font-size: var(--text-base);
+  }
+
+  .md-article-body :global(h2) {
+    font-size: var(--text-xl);
+    margin: 28px 0 12px;
+    color: var(--accent-primary);
+  }
+
+  .md-article-body :global(h3) {
+    font-size: var(--text-lg);
+    margin: 22px 0 10px;
+  }
+
+  .md-article-body :global(p) {
+    margin: 0 0 16px;
+  }
+
+  .md-article-body :global(ul),
+  .md-article-body :global(ol) {
+    margin: 0 0 18px;
+    padding-inline-start: 22px;
+    list-style: disc;
+  }
+
+  .md-article-body :global(ol) {
+    list-style: decimal;
+  }
+
+  .md-article-body :global(li) {
+    margin-bottom: 8px;
+    line-height: 1.8;
+  }
+
+  .md-article-body :global(pre) {
+    background: #171923;
+    color: #f4f6fb;
+    padding: 16px;
+    border-radius: var(--radius-md);
+    overflow-x: auto;
+    direction: ltr;
+    text-align: left;
+    font-size: var(--text-sm);
+    margin: 20px 0;
+  }
+
+  .md-article-body :global(code) {
+    background: rgba(35, 27, 77, 0.08);
+    padding: 2px 6px;
+    border-radius: 6px;
+    font-size: 0.9em;
+  }
+
+  .md-article-body :global(pre code) {
+    background: transparent;
+    padding: 0;
+  }
+
+  .md-article-body :global(blockquote) {
+    margin: 20px 0;
+    padding: 12px 18px;
+    border-inline-start: 3px solid var(--accent-secondary);
+    background: rgba(255, 255, 255, 0.55);
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+  }
+
+  .md-article-footer {
+    margin-top: 28px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border-hairline);
+  }
+
+  .md-back-link {
+    font-weight: 700;
+    color: var(--accent-primary);
+    font-size: var(--text-sm);
+  }
+
+  @media (max-width: 768px) {
+    .md-article {
+      padding: 20px 16px;
+      border-radius: var(--radius-md);
+    }
+  }
+</style>
