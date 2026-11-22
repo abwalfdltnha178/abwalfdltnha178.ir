@@ -1,0 +1,98 @@
+---
+import { getCollection } from 'astro:content';
+
+const allProjects = await getCollection('projects');
+const sortedProjects = allProjects.sort((a, b) => a.data.order - b.data.order);
+---
+
+<section id="portfolio" class="section-block">
+  <div class="section-header">
+    <h2 class="section-title">نمونه‌کارها و پروژه‌ها</h2>
+    <p class="section-subtitle">
+      مجموعه پروژه‌ها و یادداشت‌های اجرایی در حال تکمیل؛ این سایت نیز به‌عنوان نخستین نمونه‌کار زنده در حال شکل‌گیری است.
+    </p>
+  </div>
+
+  {
+    sortedProjects.length > 0 ? (
+      <div class="portfolio-grid">
+        {
+          sortedProjects.map((project) => (
+            <article class="liquid-glass portfolio-card" data-thickness="40" data-blur="3" data-tint="255,255,255" data-tint-opacity="0.7">
+              <h3>{project.data.title}</h3>
+              <p>{project.data.description}</p>
+              {
+                project.data.stack.length > 0 && (
+                  <ul class="stack-list">
+                    {project.data.stack.map((tech) => (
+                      <li>{tech}</li>
+                    ))}
+                  </ul>
+                )
+              }
+              <a href={`/portfolio/${project.id}/`} class="card-link">جزئیات پروژه ←</a>
+            </article>
+          ))
+        }
+      </div>
+    ) : (
+      <div class="liquid-glass portfolio-empty" data-thickness="40" data-blur="3" data-tint="255,255,255" data-tint-opacity="0.72">
+        <h3>بخش نمونه‌کارها در حال تکمیل است</h3>
+        <p>
+          در حال حاضر خودِ این وب‌سایت روی دامنه abwalfdltnha178.ir در حال ساخت و توسعه است و جزئیات پروژه‌ها به‌تدریج در بخش نمونه‌کارها منتشر می‌شوند.
+        </p>
+        <a href="/portfolio/" class="card-link">مشاهده صفحه نمونه‌کارها ←</a>
+      </div>
+    )
+  }
+</section>
+
+<style>
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  .portfolio-card,
+  .portfolio-empty {
+    border-radius: var(--radius-md);
+    padding: 24px;
+  }
+
+  .portfolio-card h3,
+  .portfolio-empty h3 {
+    font-size: var(--text-lg);
+    margin: 0 0 8px;
+  }
+
+  .portfolio-card p,
+  .portfolio-empty p {
+    margin: 0 0 14px;
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+  }
+
+  .stack-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+
+  .stack-list li {
+    font-size: var(--text-xs);
+    padding: 4px 10px;
+    border-radius: var(--radius-pill);
+    background: rgba(35, 27, 77, 0.08);
+    color: var(--accent-primary);
+    font-weight: 600;
+  }
+
+  .card-link {
+    display: inline-block;
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--accent-primary);
+  }
+</style>
