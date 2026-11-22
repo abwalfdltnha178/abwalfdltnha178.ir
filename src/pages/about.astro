@@ -1,0 +1,74 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SocialsHub from '../components/SocialsHub.astro';
+import { siteConfig } from '../data/site';
+---
+
+<Layout
+  title={`درباره من | ${siteConfig.name}`}
+  description={`معرفی ${siteConfig.name}، حوزه‌های فعالیت، وضعیت توسعه سایت ${siteConfig.domain} و راه‌های ارتباطی.`}
+  path="/about/"
+  ogType="profile"
+  schemaType="Person"
+>
+  <section class="about-intro liquid-glass" data-thickness="45" data-blur="4" data-tint="255,255,255" data-tint-opacity="0.72">
+    <h1 class="about-title">درباره {siteConfig.name}</h1>
+    <p class="about-role">{siteConfig.role}</p>
+    <p class="about-text">
+      من در حوزه توسعه وب، فرانت‌اند، وردپرس، طراحی رابط کاربری و گرافیک برداری فعالیت می‌کنم و در کنار آن،
+      تجربه‌ها و یادداشت‌های فنی خود را در قالب وبلاگ، کانال‌ها و شبکه‌های اجتماعی به اشتراک می‌گذارم.
+    </p>
+    <p class="about-text">
+      وب‌سایت {siteConfig.domain} روی {siteConfig.hostingProvider} میزبانی می‌شود و در نقش پورتفولیوی شخصی و
+      آزمایشگاه زنده فناوری در حال توسعه است.
+    </p>
+  </section>
+
+  <section id="contact" class="section-block">
+    <div class="section-header">
+      <h2 class="section-title">راه‌های ارتباطی و دنبال کردن</h2>
+      <p class="section-subtitle">
+        برای ارتباط مستقیم، بررسی کدها یا دنبال کردن یادداشت‌ها و ویدئوها می‌توانید از مسیرهای زیر استفاده کنید.
+      </p>
+    </div>
+  </section>
+
+  <SocialsHub />
+</Layout>
+
+<style>
+  .about-intro {
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    max-width: 920px;
+  }
+
+  .about-title {
+    font-size: var(--text-2xl);
+    margin: 0 0 8px;
+  }
+
+  .about-role {
+    margin: 0 0 18px;
+    font-size: var(--text-base);
+    font-weight: 700;
+    color: var(--accent-primary);
+  }
+
+  .about-text {
+    margin: 0 0 14px;
+    font-size: var(--text-base);
+    color: var(--text-secondary);
+  }
+
+  .about-text:last-child {
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 768px) {
+    .about-intro {
+      padding: 22px 18px;
+      border-radius: var(--radius-md);
+    }
+  }
+</style>
