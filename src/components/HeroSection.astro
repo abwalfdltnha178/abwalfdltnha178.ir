@@ -1,0 +1,142 @@
+---
+import { siteConfig } from '../data/site';
+---
+
+<section id="hero" class="hero-section">
+  <div class="hero-card glass-nav-bar">
+    <p class="hero-kicker">پورتفولیو و آزمایشگاه زنده فناوری • {siteConfig.domain}</p>
+    <h1 class="hero-title">{siteConfig.name}</h1>
+    <p class="hero-subtitle">{siteConfig.role}</p>
+    <p class="hero-lead">
+      این وب‌سایت هم‌زمان ویترین معرفی و مهارت‌های من و آزمایشگاه زنده ساخت و آزمایش تجربه‌های وب است.
+      ساختار سایت در حال توسعه است و خودِ همین پلتفرم در کنار پروژه‌ها و یادداشت‌ها شکل می‌گیرد.
+    </p>
+
+    <div class="hero-actions">
+      <a href="/portfolio/" class="btn-primary">مشاهده نمونه‌کارها</a>
+      <a href="/lab/" class="btn-secondary">ورود به آزمایشگاه زنده</a>
+      <a href="/blog/" class="btn-secondary">مطالعه وبلاگ</a>
+    </div>
+  </div>
+
+  <div class="hero-highlights">
+    <div class="liquid-glass highlight-box" data-thickness="40" data-blur="3" data-tint="255,255,255" data-tint-opacity="0.72">
+      <h2>وضعیت فعلی</h2>
+      <p>در حال تکمیل معماری، رابط کاربری Liquid Glass و استقرار خودکار روی آروان‌کلاد.</p>
+    </div>
+
+    <div class="liquid-glass highlight-box" data-thickness="40" data-blur="3" data-tint="255,255,255" data-tint-opacity="0.72">
+      <h2>حوزه‌های فعالیت</h2>
+      <p>توسعه وب و فرانت‌اند، وردپرس، طراحی رابط کاربری و وکتور، سرور لینوکسی و تولید محتوا.</p>
+    </div>
+
+    <div class="liquid-glass highlight-box" data-thickness="40" data-blur="3" data-tint="255,255,255" data-tint-opacity="0.72">
+      <h2>مسیر شفاف</h2>
+      <p>انتشار یادداشت‌ها، کدها و ویدئوها در وبلاگ، گیت‌هاب و کانال‌ها و شبکه‌های اجتماعی.</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-card {
+    border-radius: var(--radius-lg);
+    padding: 36px 32px;
+    background:
+      linear-gradient(135deg, rgba(35, 27, 77, 0.92), rgba(74, 0, 224, 0.84));
+    color: #fff;
+  }
+
+  .hero-kicker {
+    margin: 0 0 10px;
+    font-size: var(--text-xs);
+    color: rgba(255, 255, 255, 0.82);
+    font-weight: 600;
+  }
+
+  .hero-title {
+    font-size: var(--text-hero);
+    color: #fff;
+    margin: 0 0 8px;
+  }
+
+  .hero-subtitle {
+    margin: 0 0 14px;
+    font-size: var(--text-lg);
+    color: rgba(255, 255, 255, 0.92);
+    font-weight: 600;
+  }
+
+  .hero-lead {
+    margin: 0 0 24px;
+    max-width: 760px;
+    font-size: var(--text-base);
+    color: rgba(255, 255, 255, 0.86);
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 11px 20px;
+    border-radius: var(--radius-pill);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    transition: transform var(--transition-fast);
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--accent-warm-start), var(--accent-warm-end));
+    color: #fff;
+  }
+
+  .btn-secondary {
+    background: rgba(255, 255, 255, 0.14);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+  }
+
+  .btn-primary:hover,
+  .btn-secondary:hover {
+    transform: translateY(-2px);
+  }
+
+  .hero-highlights {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-top: 18px;
+  }
+
+  .highlight-box {
+    border-radius: var(--radius-md);
+    padding: 20px;
+  }
+
+  .highlight-box h2 {
+    font-size: var(--text-lg);
+    margin: 0 0 8px;
+  }
+
+  .highlight-box p {
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+  }
+
+  @media (max-width: 900px) {
+    .hero-card {
+      padding: 24px 20px;
+    }
+
+    .hero-highlights {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
