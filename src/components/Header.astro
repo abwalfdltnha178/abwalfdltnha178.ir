@@ -1,0 +1,273 @@
+---
+import { siteConfig } from '../data/site';
+import { headerNavItems } from '../data/navigation';
+
+interface Props {
+  currentPath?: string;
+}
+
+const { currentPath = '/' } = Astro.props;
+
+const isActive = (href: string) => {
+  if (href === '/') return currentPath === '/';
+  return currentPath.startsWith(href);
+};
+---
+
+<header class="site-header glass-nav-bar">
+  <div class="header-inner">
+    <a href="/" class="brand-link" aria-label={`صفحه اصلی ${siteConfig.name}`}>
+      <span class="brand-mark">AT</span>
+      <span class="brand-meta">
+        <strong>{siteConfig.name}</strong>
+        <small>{siteConfig.domain}</small>
+      </span>
+    </a>
+
+    <button
+      type="button"
+      class="nav-toggle"
+      id="navToggleBtn"
+      aria-label="باز و بسته کردن منو"
+      aria-expanded="false"
+      aria-controls="siteNavMenu"
+    >
+      <span class="nav-toggle-lines" aria-hidden="true"></span>
+    </button>
+
+    <nav class="site-nav" id="siteNavMenu" aria-label="ناوبری اصلی">
+      <ul class="nav-list">
+        {
+          headerNavItems.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class:list={['nav-link', { 'is-active': isActive(item.href) }]}
+                aria-current={isActive(item.href) ? 'page' : undefined}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <a href="/about/#contact" class="header-cta">راه‌های ارتباطی</a>
+    </nav>
+  </div>
+</header>
+
+<script is:inline>
+  (() => {
+    const initHeader = () => {
+      const btn = document.getElementById('navToggleBtn');
+      const nav = document.getElementById('siteNavMenu');
+      if (!btn || !nav || btn.dataset.bound === 'true') return;
+      btn.dataset.bound = 'true';
+
+      btn.addEventListener('click', () => {
+        const expanded = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!expanded));
+        nav.classList.toggle('is-open', !expanded);
+      });
+
+      nav.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => {
+          btn.setAttribute('aria-expanded', 'false');
+          nav.classList.remove('is-open');
+        });
+      });
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initHeader, { once: true });
+    } else {
+      initHeader();
+    }
+  })();
+</script>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 12px;
+    z-index: 40;
+    border-radius: var(--radius-lg);
+    padding: 12px 18px;
+    margin-bottom: 24px;
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .brand-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+
+  .brand-mark {
+    width: 42px;
+    height: 42px;
+    border-radius: var(--radius-sm);
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    color: #fff;
+    font-weight: 800;
+    font-size: var(--text-base);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .brand-meta {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.25;
+  }
+
+  .brand-meta strong {
+    font-size: var(--text-base);
+    font-weight: 800;
+  }
+
+  .brand-meta small {
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    direction: ltr;
+    text-align: right;
+  }
+
+  .site-nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 16px;
+    flex: 1;
+  }
+
+  .nav-list {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .nav-link {
+    display: inline-block;
+    padding: 8px 14px;
+    border-radius: var(--radius-pill);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--text-secondary);
+    transition: background var(--transition-fast), color var(--transition-fast);
+    white-space: nowrap;
+  }
+
+  .nav-link:hover,
+  .nav-link.is-active {
+    background: rgba(35, 27, 77, 0.08);
+    color: var(--accent-primary);
+    font-weight: 700;
+  }
+
+  .header-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 9px 16px;
+    border-radius: var(--radius-pill);
+    background: var(--accent-primary);
+    color: #fff;
+    font-size: var(--text-sm);
+    font-weight: 700;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .nav-toggle {
+    display: none;
+    width: 42px;
+    height: 42px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-hairline);
+    background: var(--surface-elevated);
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav-toggle-lines,
+  .nav-toggle-lines::before,
+  .nav-toggle-lines::after {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: var(--text-primary);
+    border-radius: 2px;
+    transition: transform var(--transition-fast);
+  }
+
+  .nav-toggle-lines {
+    position: relative;
+  }
+
+  .nav-toggle-lines::before,
+  .nav-toggle-lines::after {
+    content: '';
+    position: absolute;
+    right: 0;
+  }
+
+  .nav-toggle-lines::before {
+    top: -6px;
+  }
+
+  .nav-toggle-lines::after {
+    top: 6px;
+  }
+
+  @media (max-width: 960px) {
+    .nav-toggle {
+      display: inline-flex;
+    }
+
+    .site-nav {
+      display: none;
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      left: 0;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 14px;
+      padding: 18px;
+      border-radius: var(--radius-md);
+      background: var(--surface-elevated);
+      border: 1px solid var(--border-hairline);
+      box-shadow: var(--shadow-card);
+    }
+
+    .site-nav.is-open {
+      display: flex;
+    }
+
+    .nav-list {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .nav-link {
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+    }
+
+    .header-cta {
+      width: 100%;
+    }
+  }
+</style>
