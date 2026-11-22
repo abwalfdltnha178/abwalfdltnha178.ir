@@ -1,27 +1,77 @@
-<!doctype html>
-<html lang="fa" dir="rtl">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
-		<title>رزومه</title>
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
+---
+import SeoHead from '../components/SeoHead.astro';
+import { siteConfig } from '../data/site';
+import '../styles/variables.css';
+import '../styles/typography.css';
+import '../styles/global.css';
+import '../styles/liquid-glass.css';
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-		font-family: 'Vazirmatn', sans-serif;
-	}
-</style>
+interface Props {
+  title?: string;
+  description?: string;
+  path?: string;
+  ogType?: 'website' | 'article' | 'profile';
+  publishedTime?: string;
+  modifiedTime?: string;
+  schemaType?: 'WebSite' | 'Person' | 'Article' | 'CreativeWork';
+}
+
+const {
+  title = siteConfig.defaultTitle,
+  description = siteConfig.defaultDescription,
+  path = Astro.url.pathname || '/',
+  ogType = 'website',
+  publishedTime,
+  modifiedTime,
+  schemaType = 'WebSite',
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="fa" dir={siteConfig.dir}>
+  <head>
+    <SeoHead
+      title={title}
+      description={description}
+      path={path}
+      ogType={ogType}
+      publishedTime={publishedTime}
+      modifiedTime={modifiedTime}
+      schemaType={schemaType}
+    />
+    <link rel="icon" type="image/svg+xml" href="/AT.svg" />
+    <link rel="icon" href="/AT.ico" />
+    <link rel="icon" href="/AT.png" type="image/png" sizes="512x512" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="site-shell">
+      <div class="glass-shell">
+        <slot />
+      </div>
+    </div>
+
+    <script>
+      import { LiquidGlass } from '../assets/LiquidGlass.js';
+
+      const initLiquidGlass = () => {
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (reducedMotion) return;
+
+        const lg = new LiquidGlass();
+        lg.initAll('.liquid-glass');
+      };
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initLiquidGlass, { once: true });
+      } else {
+        initLiquidGlass();
+      }
+    </script>
+  </body>
+</html>
