@@ -1,0 +1,97 @@
+---
+import { getCollection, render } from 'astro:content';
+import MarkdownLayout from '../../layouts/MarkdownLayout.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+
+const statusLabels: Record<string, string> = {
+  'in-progress': 'در حال توسعه',
+  completed: 'تکمیل‌شده',
+  'live-lab': 'آزمایشگاه زنده',
+};
+---
+
+<MarkdownLayout
+  title={project.data.title}
+  description={project.data.description}
+  path={`/portfolio/${project.id}/`}
+  category="پروژه"
+  badgeLabel={statusLabels[project.data.status] ?? project.data.status}
+  backHref="/portfolio/"
+  backLabel="بازگشت به نمونه‌کارها"
+  schemaType="CreativeWork"
+>
+  <Content />
+
+  {
+    project.data.stack.length > 0 && (
+      <section class="project-extra">
+        <h2>فناوری‌ها و ابزارها</h2>
+        <ul>
+          {project.data.stack.map((tech) => <li>{tech}</li>)}
+        </ul>
+      </section>
+    )
+  }
+
+  {
+    (project.data.liveUrl || project.data.repoUrl) && (
+      <section class="project-extra">
+        <h2>لینک‌های مرتبط</h2>
+        <ul>
+          {
+            project.data.liveUrl && (
+              <li>
+                <a href={project.data.liveUrl} target="_blank" rel="noopener noreferrer">
+                  مشاهده نسخه زنده
+                </a>
+              </li>
+            )
+          }
+          {
+            project.data.repoUrl && (
+              <li>
+                <a href={project.data.repoUrl} target="_blank" rel="noopener noreferrer">
+                  مشاهده مخزن کد
+                </a>
+              </li>
+            )
+          }
+        </ul>
+      </section>
+    )
+  }
+</MarkdownLayout>
+
+<style>
+  .project-extra {
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-hairline);
+  }
+
+  .project-extra h2 {
+    font-size: var(--text-lg);
+    margin: 0 0 10px;
+    color: var(--accent-primary);
+  }
+
+  .project-extra ul {
+    margin: 0;
+    padding-inline-start: 20px;
+    list-style: disc;
+  }
+
+  .project-extra li {
+    margin-bottom: 6px;
+  }
+</style>
