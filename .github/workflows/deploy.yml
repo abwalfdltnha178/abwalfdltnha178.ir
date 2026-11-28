@@ -19,7 +19,7 @@ jobs:
 
       - name: نصب وابستگی‌ها و بیلد پروژه
         run: |
-          npm install
+          npm ci
           npm run build
 
       - name: همگام‌سازی فایل‌ها با صندوقچه آروان‌کلاد (Sync)
@@ -28,6 +28,11 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.ARVAN_SECRET_KEY }}
           AWS_DEFAULT_REGION: us-east-1
         run: |
+          if ! command -v aws >/dev/null 2>&1; then
+            curl -s "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "/tmp/awscliv2.zip"
+            unzip -q /tmp/awscliv2.zip -d /tmp/aws-cli
+            sudo /tmp/aws-cli/aws/install
+          fi
           aws s3 sync ./dist s3://abwalfdltnha178 \
             --endpoint-url https://s3.ir-thr-at1.arvanstorage.ir \
             --acl public-read \
