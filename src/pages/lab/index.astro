@@ -1,0 +1,101 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import { siteConfig } from '../../data/site';
+
+const items = await getCollection('lab');
+---
+
+<Layout
+  title={`آزمایشگاه زنده فناوری | ${siteConfig.name}`}
+  description={`آزمایش‌های فناوری، رابط کاربری Liquid Glass و تجربه‌های ${siteConfig.name} در ${siteConfig.domain}.`}
+  path="/lab/"
+  ogType="website"
+  schemaType="WebSite"
+>
+  <section class="section-block first-section">
+    <div class="section-header">
+      <h1 class="section-title">آزمایشگاه زنده فناوری</h1>
+      <p class="section-subtitle">
+        محل ثبت و بررسی تجربه‌های عملی، الگوی طراحی شیشه‌ای و یادداشت‌های فنی در حال تکمیل.
+      </p>
+    </div>
+
+    {
+      items.length > 0 ? (
+        <div class="lab-grid">
+          {
+            items.map((item) => (
+              <article
+                class="liquid-glass lab-card"
+                data-thickness="40"
+                data-blur="3"
+                data-tint="255,255,255"
+                data-tint-opacity="0.72"
+              >
+                <span class="lab-topic">{item.data.topic}</span>
+                <h2>{item.data.title}</h2>
+                <p>{item.data.description}</p>
+                <a href={`/lab/${item.id}/`} class="card-link">ورود به آزمایش ←</a>
+              </article>
+            ))
+          }
+        </div>
+      ) : (
+        <div
+          class="liquid-glass lab-card"
+          data-thickness="40"
+          data-blur="3"
+          data-tint="255,255,255"
+          data-tint-opacity="0.72"
+        >
+          <h2>آزمایش‌ها در حال ثبت هستند</h2>
+          <p>یادداشت‌ها و تجربه‌های فناوری به‌تدریج در این بخش منتشر می‌شوند.</p>
+        </div>
+      )
+    }
+  </section>
+</Layout>
+
+<style>
+  .first-section {
+    margin-top: 8px;
+  }
+
+  .lab-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 20px;
+  }
+
+  .lab-card {
+    border-radius: var(--radius-md);
+    padding: 24px;
+  }
+
+  .lab-topic {
+    display: inline-block;
+    font-size: var(--text-xs);
+    font-weight: 700;
+    color: var(--accent-secondary);
+    margin-bottom: 8px;
+  }
+
+  .lab-card h2 {
+    font-size: var(--text-lg);
+    margin: 0 0 8px;
+  }
+
+  .lab-card p {
+    margin: 0 0 16px;
+    font-size: var(--text-sm);
+    color: var(--text-secondary);
+  }
+
+  .card-link {
+    display: inline-block;
+    font-size: var(--text-sm);
+    font-weight: 700;
+    color: var(--accent-primary);
+  }
+</style>
