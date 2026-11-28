@@ -1,0 +1,29 @@
+---
+import { getCollection, render } from 'astro:content';
+import MarkdownLayout from '../../layouts/MarkdownLayout.astro';
+
+export async function getStaticPaths() {
+  const items = await getCollection('lab');
+  return items.map((item) => ({
+    params: { slug: item.id },
+    props: { item },
+  }));
+}
+
+const { item } = Astro.props;
+const { Content } = await render(item);
+---
+
+<MarkdownLayout
+  title={item.data.title}
+  description={item.data.description}
+  path={`/lab/${item.id}/`}
+  updatedDate={item.data.updatedDate}
+  category="آزمایشگاه زنده"
+  badgeLabel={item.data.topic}
+  backHref="/lab/"
+  backLabel="بازگشت به آزمایشگاه"
+  schemaType="Article"
+>
+  <Content />
+</MarkdownLayout>
